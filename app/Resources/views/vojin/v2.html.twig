@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form action="/action_page.php">
+    ID: <input type="text" name="usrname"><br>
+    {#<input type="submit" value="Submit">#}
+</form>
+<div id="showConference"></div>
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script
+        src="https://code.jquery.com/ui/1.8.0/jquery-ui.min.js"
+        integrity="sha256-i1lZLWfq3HA69s3Vuo0Hf5+UhdAftkBVVWFDNfib6Zs="
+        crossorigin="anonymous"></script>
+<script>
+
+ $(function(){
+     $('[name="usrname"]').on('keyup', function(){
+        var id = $('[name="usrname"]').val();
+        var path = "{{ path('v3', {'id' : '__id__'})}}";
+        path = path.replace('__id__', id);
+        $.ajax({
+            type: 'GET',
+            url: path,
+            success: function(response){
+                $("#showConference").dialog({
+                    title: 'A',
+                    width: '1000px',
+                    position: ['center', 150],
+                    autoOpen:true,
+                }).html(response);
+            }
+        });
+     });
+ });
+
+
+
+
+</script>
